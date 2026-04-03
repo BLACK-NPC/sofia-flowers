@@ -1,14 +1,103 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background: linear-gradient(135deg, #004d00, #1a1a00);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Georgia', serif;
+  overflow: hidden;
+}
+
+.background {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 0;
+}
+
 .container {
-  background: linear-gradient(135deg, #004d00, #e6e600);
-  animation: burst 5s infinite;
+  position: relative;
+  z-index: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+  padding: 2rem;
+  text-align: center;
 }
 
-.title {
+.main-title {
   color: gold;
-  text-shadow: 0 0 20px gold;
+  font-size: clamp(2rem, 6vw, 4rem);
+  text-shadow: 0 0 20px gold, 0 0 40px gold;
+  animation: glow 2s ease-in-out infinite alternate;
 }
 
-@keyframes burst {
-  0% { transform: translate(var(--tx, 0), var(--ty, 0)); }
-  100% { transform: translate(var(--tx, 10px), var(--ty, 10px)); }
+@keyframes glow {
+  from { text-shadow: 0 0 10px gold, 0 0 20px gold; }
+  to   { text-shadow: 0 0 30px gold, 0 0 60px #ffff00, 0 0 80px gold; }
+}
+
+.animate-btn {
+  background: linear-gradient(135deg, #ffcc00, #ff6600);
+  color: #1a0000;
+  border: none;
+  padding: 1rem 2.5rem;
+  font-size: 1.2rem;
+  font-family: 'Georgia', serif;
+  font-weight: bold;
+  border-radius: 50px;
+  cursor: pointer;
+  box-shadow: 0 0 20px rgba(255, 200, 0, 0.6);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.animate-btn:hover {
+  transform: scale(1.08);
+  box-shadow: 0 0 35px rgba(255, 200, 0, 0.9);
+}
+
+.animate-btn:active {
+  transform: scale(0.96);
+}
+
+.flowers-container {
+  position: fixed;
+  inset: 0;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.flower {
+  position: absolute;
+  font-size: 2rem;
+  animation: floatFlower linear forwards;
+  opacity: 0;
+  user-select: none;
+}
+
+@keyframes floatFlower {
+  0%   { opacity: 1; transform: translateY(0) rotate(0deg) scale(1); }
+  80%  { opacity: 1; }
+  100% { opacity: 0; transform: translateY(-120vh) rotate(720deg) scale(0.5); }
+}
+
+.floating-text {
+  color: rgba(255, 215, 0, 0.35);
+  font-size: clamp(1rem, 3vw, 1.8rem);
+  letter-spacing: 0.3em;
+  text-transform: uppercase;
+  animation: pulse 3s ease-in-out infinite;
+  pointer-events: none;
+}
+
+@keyframes pulse {
+  0%, 100% { opacity: 0.35; }
+  50%       { opacity: 0.8; }
 }

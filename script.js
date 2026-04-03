@@ -1,29 +1,31 @@
-function createFlowers() {
-    const numFlowers = 80;
-    const flowersContainer = document.createElement('div');
-    document.body.appendChild(flowersContainer);
+const FLOWER_EMOJIS = ['🌸', '🌼', '🌺', '💐', '🌷', '🌹', '💛', '✨'];
 
-    for (let i = 0; i < numFlowers; i++) {
-        const flower = document.createElement('div');
-        flower.className = 'flower';
-        const distance = Math.random() * 300 + 100; // random distance between 100 and 400
-        const angle = Math.random() * 2 * Math.PI; // random angle in radians
+function createFlower() {
+    const container = document.querySelector('.flowers-container');
+    const flower = document.createElement('div');
+    flower.className = 'flower';
+    flower.textContent = FLOWER_EMOJIS[Math.floor(Math.random() * FLOWER_EMOJIS.length)];
 
-        const x = Math.cos(angle) * distance;
-        const y = Math.sin(angle) * distance;
+    const startX = Math.random() * 100;
+    const duration = Math.random() * 3 + 3;
+    const delay = Math.random() * 2;
 
-        flower.style.position = 'absolute';
-        flower.style.left = `calc(50% + ${x}px)`;
-        flower.style.top = `calc(50% + ${y}px)`;
-        flowersContainer.appendChild(flower);
+    flower.style.left = `${startX}vw`;
+    flower.style.bottom = `${Math.random() * 20}vh`;
+    flower.style.animationDuration = `${duration}s`;
+    flower.style.animationDelay = `${delay}s`;
+    flower.style.fontSize = `${Math.random() * 1.5 + 1.2}rem`;
+
+    container.appendChild(flower);
+
+    flower.addEventListener('animationend', () => flower.remove());
+}
+
+function launchFlowers() {
+    const count = 60;
+    for (let i = 0; i < count; i++) {
+        setTimeout(createFlower, i * 80);
     }
-
-    playSound();
 }
 
-function playSound() {
-    const audio = new Audio('path/to/multi-note-sound-effect.mp3');
-    audio.play();
-}
-
-createFlowers();
+document.getElementById('animateBtn').addEventListener('click', launchFlowers);
